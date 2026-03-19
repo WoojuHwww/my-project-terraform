@@ -169,10 +169,6 @@ module "iam_autoscaler" {
   source = "../../modules/iam"
 
   oidc_issuer_url = module.eks.cluster_oidc_issuer
-
-  create_platform_admin_role    = true
-  platform_admin_role_name      = var.platform_admin_role_name
-  platform_admin_principal_arns = var.platform_admin_principal_arns
 }
 
 resource "aws_iam_role" "platform_admin" {
