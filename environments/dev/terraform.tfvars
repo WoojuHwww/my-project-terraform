@@ -150,16 +150,3 @@ ecr_encryption_type         = "AES256"
 ecr_kms_key_arn             = null
 ecr_create_lifecycle_policy = true
 
-# -------------------------
-# IAM
-# -------------------------
-
-platform_admin_role_name = "PlatformAdminRole"
-
-#계정 전체는 root, 일부 유저는 user/eks-user 수정 
-platform_admin_principal_arns = [
-  "arn:aws:iam::398875891485:user/eks-user"
-]
-
-#본인 github action role로 수정
-github_actions_terraform_role_arn = "arn:aws:iam::398875891485:role/github-action-2"
