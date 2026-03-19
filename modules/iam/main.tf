@@ -14,6 +14,7 @@ resource "aws_iam_openid_connect_provider" "eks" {
   ]
 }
 
+
 resource "aws_iam_role" "cluster_autoscaler" {
   name = "cluster-autoscaling-role"
 
