@@ -194,6 +194,27 @@ resource "aws_launch_template" "node" {
     aws_security_group.node.id
   ]
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+      volume_size           = var.disk_size
+      volume_type           = "gp3"
+      delete_on_termination = true
+    }
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = merge(
+      var.common_tags,
+      {
+        Name = "${var.env}-${var.cluster_name}-node"
+      }
+    )
+  }
+
   tags = merge(
     var.common_tags,
     {
@@ -214,7 +235,6 @@ resource "aws_eks_node_group" "main" {
   capacity_type  = var.capacity_type
   instance_types = var.instance_types
   ami_type       = var.ami_type
-  disk_size      = var.disk_size
 
   launch_template {
     id      = aws_launch_template.node.id
