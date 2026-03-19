@@ -266,7 +266,7 @@ resource "aws_eks_node_group" "main" {
 }
 
 resource "aws_eks_access_entry" "admins" {
-  for_each      = toset(var.admin_principal_arns)
+  for_each      = var.admin_principals
   cluster_name  = aws_eks_cluster.main.name
   principal_arn = each.value
   type          = "STANDARD"
@@ -274,13 +274,13 @@ resource "aws_eks_access_entry" "admins" {
   tags = merge(
     var.common_tags,
     {
-      Name = "${var.env}-${var.cluster_name}-access-entry"
+      Name = "${var.env}-${var.cluster_name}-${each.key}-access-entry"
     }
   )
 }
 
 resource "aws_eks_access_policy_association" "admins" {
-  for_each      = toset(var.admin_principal_arns)
+  for_each      = var.admin_principals
   cluster_name  = aws_eks_cluster.main.name
   principal_arn = each.value
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"

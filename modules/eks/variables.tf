@@ -129,8 +129,8 @@ variable "eks_auto_mode_enabled" {
   default     = false
 }
 
-variable "admin_principal_arns" {
-  description = "IAM principal ARNs to grant EKS cluster admin access via access entries"
-  type        = list(string)
-  default     = []
+variable "admin_principals" {
+  description = "Map of named IAM principal ARNs to grant EKS cluster admin access via access entries"
+  type        = map(string)
+  default     = {}
 }

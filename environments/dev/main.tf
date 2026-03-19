@@ -72,10 +72,10 @@ module "eks" {
 
   common_tags = local.common_tags
 
-  admin_principal_arns = compact([
-    module.iam_autoscaler.platform_admin_role_arn,
-    var.github_actions_terraform_role_arn
-  ])
+  admin_principals = {
+    platform_admin = aws_iam_role.platform_admin.arn
+    github_actions = var.github_actions_terraform_role_arn
+  }
 }
 
 module "rds" {
@@ -173,4 +173,28 @@ module "iam_autoscaler" {
   create_platform_admin_role    = true
   platform_admin_role_name      = var.platform_admin_role_name
   platform_admin_principal_arns = var.platform_admin_principal_arns
+}
+
+resource "aws_iam_role" "platform_admin" {
+  name = var.platform_admin_role_name
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      for principal_arn in var.platform_admin_principal_arns : {
+        Effect = "Allow"
+        Principal = {
+          AWS = principal_arn
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role_policy_attachment" "platform_admin_admin" {
+  role       = aws_iam_role.platform_admin.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
