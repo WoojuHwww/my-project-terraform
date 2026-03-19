@@ -37,7 +37,7 @@ azs_private_db = [
   "ap-northeast-2c"
 ]
 
-cluster_name = "my-cluster-woo"
+cluster_name = "my-cluster-team03"
 
 # -------------------------
 # RDS (MySQL)
