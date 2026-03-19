@@ -161,4 +161,5 @@ platform_admin_principal_arns = [
   "arn:aws:iam::398875891485:user/eks-user"
 ]
 
-github_actions_terraform_role_arn = "arn:aws:iam::398875891485:role/GitHubActionsTerraformRole"
+#본인 github action role로 수정
+github_actions_terraform_role_arn = "arn:aws:iam::398875891485:role/github-action-2"
