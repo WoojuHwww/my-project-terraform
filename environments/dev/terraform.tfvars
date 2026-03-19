@@ -15,7 +15,7 @@ public_subnets = [
 private_app_subnets = [
   "10.0.12.0/22",
   "10.0.16.0/22"
-] 
+]
 
 private_db_subnets = [
   "10.0.24.0/24",
