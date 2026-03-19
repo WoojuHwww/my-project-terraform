@@ -134,6 +134,12 @@ eks_authentication_mode                         = "API_AND_CONFIG_MAP"
 eks_bootstrap_cluster_creator_admin_permissions = true
 eks_auto_mode_enabled                           = false
 
+#GitOps가 AssumeRole 하는 ARN 기입
+eks_admin_principal_arns = [
+  "arn:aws:iam::398875891485:role/github-action-2",
+  "arn:aws:iam::398875891485:role/PlatformAdminRole"
+]
+
 # -------------------------
 # ECR
 # -------------------------
@@ -150,3 +156,16 @@ ecr_force_delete            = true
 ecr_encryption_type         = "AES256"
 ecr_kms_key_arn             = null
 ecr_create_lifecycle_policy = true
+
+# -------------------------
+# IAM
+# -------------------------
+
+platform_admin_role_name = "PlatformAdminRole"
+
+#ID 수정 필요
+platform_admin_principal_arns = [
+  "arn:aws:iam::398875891485:eks-user"
+]
+
+github_actions_terraform_role_arn = "arn:aws:iam::398875891485:role/GitHubActionsTerraformRole"

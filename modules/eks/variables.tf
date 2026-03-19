@@ -128,3 +128,9 @@ variable "eks_auto_mode_enabled" {
   type        = bool
   default     = false
 }
+
+variable "admin_principal_arns" {
+  description = "IAM principal ARNs to grant EKS cluster admin access via access entries"
+  type        = list(string)
+  default     = []
+}

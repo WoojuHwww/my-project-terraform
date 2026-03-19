@@ -427,6 +427,12 @@ variable "eks_auto_mode_enabled" {
   default     = false
 }
 
+variable "eks_admin_principal_arns" {
+  description = "IAM principal ARNs that should have EKS cluster admin access"
+  type        = list(string)
+  default     = []
+}
+
 # -------------------------
 # ECR
 # -------------------------
@@ -492,4 +498,23 @@ variable "ecr_lifecycle_policy" {
   ]
 }
 EOF
+}
+
+
+variable "platform_admin_role_name" {
+  description = "Name of the platform admin IAM role"
+  type        = string
+  default     = "PlatformAdminRole"
+}
+
+variable "platform_admin_principal_arns" {
+  description = "IAM principal ARNs allowed to assume the platform admin role"
+  type        = list(string)
+  default     = []
+}
+
+variable "github_actions_terraform_role_arn" {
+  description = "IAM role ARN used by GitHub Actions Terraform pipeline"
+  type        = string
+  default     = null
 }

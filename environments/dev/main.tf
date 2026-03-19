@@ -71,6 +71,11 @@ module "eks" {
   max_unavailable = var.eks_max_unavailable
 
   common_tags = local.common_tags
+
+  admin_principal_arns = compact([
+    module.iam_autoscaler.platform_admin_role_arn,
+    var.github_actions_terraform_role_arn
+  ])
 }
 
 module "rds" {
@@ -164,4 +169,8 @@ module "iam_autoscaler" {
   source = "../../modules/iam"
 
   oidc_issuer_url = module.eks.cluster_oidc_issuer
+
+  create_platform_admin_role   = true
+  platform_admin_role_name     = var.platform_admin_role_name
+  platform_admin_principal_arns = var.platform_admin_principal_arns
 }
