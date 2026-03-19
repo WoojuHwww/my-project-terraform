@@ -69,6 +69,10 @@ module "eks" {
   min_size        = var.eks_min_size
   max_size        = var.eks_max_size
   max_unavailable = var.eks_max_unavailable
+  
+  admin_principals = {
+    eks_user = var.eks_access_principal_arn
+  }
 
   common_tags = local.common_tags
 }

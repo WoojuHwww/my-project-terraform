@@ -427,6 +427,11 @@ variable "eks_auto_mode_enabled" {
   default     = false
 }
 
+variable "eks_access_principal_arn" {
+  description = "IAM principal ARN to grant EKS cluster admin access"
+  type        = string
+}
+
 # -------------------------
 # ECR
 # -------------------------
